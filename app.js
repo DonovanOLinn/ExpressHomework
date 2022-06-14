@@ -1,7 +1,32 @@
 const express = require('express');
+const dotenv = require('dotenv');
+const { connectDB } = require('./src/db')
+const { graphqlHTTP } = require('express-graphql')
+const schema = require('./src/graphql/schema')
+dotenv.config();
 const app = express();
-const port = 3000;
+connectDB()
+
+//const port = 3000;
 app.set('view engine', 'ejs');
+
+app.use("/graphql", graphqlHTTP({
+    schema, 
+    graphiql: true
+}))
+
+app.get('/', (req, res)=>{
+    console.log('Hello, Foxes. Welcome to Quizly');
+    res.send('Hello, Foxes. Welcome to Quizly');
+});
+
+app.listen(process.env.PORT, ()=>{
+    console.log(`Quizly is running on PORT ${process.env.PORT}!`)
+});
+
+
+
+/*
 app.listen(port, ()=>{
     console.log(`Hello Foxes!! THis app is listening on port: ${port}`)
 })
@@ -34,3 +59,5 @@ app.get('/register', (req, res)=>{
 app.get('/user', (req, res)=>{
     res.render('pages/user');
 });
+*/
+
