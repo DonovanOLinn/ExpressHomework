@@ -20,12 +20,13 @@ const PostType = new GraphQLInputObjectType({
         text: { type: GraphQLString },
         title: { type: GraphQLString },
         userId: { type: GraphQLString },
-        user: {
+/*        user: {
             type: UserType,
             resolve(parent, args) {
                 return User.findById(parent.userId)
             }
-        }
+            
+        }*/
     })
 })
 
